@@ -18,6 +18,10 @@ public class ReactorApplication implements CommandLineRunner {
     public void reactor() {
         //flujo de datos
         Mono.just(new Persona(1, "juan", 22))
+                .doOnNext(p -> {
+                    //logica adicional
+                    log.info("[Reactor] persona" + p);
+                })
                 //suscripcion
                 .subscribe(p -> log.info("[Reactor] persona" + p));
     }
@@ -25,6 +29,7 @@ public class ReactorApplication implements CommandLineRunner {
     public void rxjava2() {
         //flujo de datos
         Observable.just(new Persona(1, "juan", 22))
+                .doOnNext(p -> log.info("[Rxjava2] persona" + p))
                 //suscripcion
                 .subscribe(p -> log.info("[Rxjava2] persona" + p));
 
